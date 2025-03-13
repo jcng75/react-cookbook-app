@@ -3,7 +3,7 @@ export default function App() {
   return (
     <>
       <div>
-        <h1> Create a new Recipe </h1>
+        <h1 className="text-3xl font-bold underline"> Create a new Recipe </h1>
         <form>
           <label htmlFor="recipe">
             Recipe Name:
@@ -15,7 +15,7 @@ export default function App() {
             <textarea id="ingredients" name="ingredients" />
           <button type="submit">Submit</button>
           </form>
-        <h1> My Cool Cookbook Recipes </h1>
+        <h1 className="text-3xl font-bold underline"> My Cool Cookbook Recipes </h1>
         <label htmlFor="search"> Search </label>
         <input id="search" type="text"></input>
         <ul>
