@@ -1,7 +1,20 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+import { useState } from 'react';
+
 export default function App() {
+  const [showModal, setShowModal] = useState<number | null>(null);
+
+  const handleShow = (index: number) => {
+    setShowModal(index);
+  };
+
+  const handleClose = () => {
+    setShowModal(null);
+  };
+
+  const recipes = ['Recipe 1', 'Recipe 2', 'Recipe 3'];
 
   return (
     <>
@@ -36,42 +49,36 @@ export default function App() {
         <label htmlFor="search" className="label"> Search </label>
         <input id="search" type="text" className="form-control mb-3"></input>
         <ul className="list-group">
-          <li className="list-group-item">
-            Recipe 1
-            <div>
-              <button className="btn btn-success m-2"> Info </button>
-              <Modal>
+          {recipes.map((recipe, index) => (
+            <li key={index} className="list-group-item">
+              {recipe}
+              <div>
+                <button
+                  className="btn btn-success m-2"
+                  onClick={() => handleShow(index)}
+                >
+                  Info
+                </button>
+                <button className="btn btn-danger">Delete</button>
+              </div>
+              <Modal show={showModal === index} onHide={handleClose}>
                 <Modal.Header closeButton>
-                  <Modal.Title id='ModalHeader'>A Title Goes here</Modal.Title>
+                  <Modal.Title>{recipe} Details</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <p>Some Content here</p>
+                  <p>Details about {recipe} go here.</p>
                 </Modal.Body>
                 <Modal.Footer>
-                  // If you don't have anything fancy to do you can use
-                  // the convenient `Dismiss` component, it will
-                  // trigger `onHide` when clicked
-                  {/* <Modal.Dismiss className='btn btn-default'>Cancel</Modal.Dismiss> */}
-
-                  // Or you can create your own dismiss buttons
-                  <button className='btn btn-primary'>
-                    Save
-                  </button>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                  </Button>
                 </Modal.Footer>
               </Modal>
-            </div>
-            <button className="btn btn-danger"> Delete </button>
             </li>
-          <li className="list-group-item">
-            Recipe 2
-            <button className="btn btn-success m-2"> Info </button>
-            <button className="btn btn-danger"> Delete </button>
-            </li>
-          <li className="list-group-item">
-            Recipe 3
-            <button className="btn btn-success m-2"> Info </button>
-            <button className="btn btn-danger"> Delete </button>
-            </li>
+          ))}
         </ul>
       </div>
     </>
